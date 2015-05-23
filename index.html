@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Bootstrap Core CSS -->
+    <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
+
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+
+    <!-- Custom CSS -->
+    <style>
+    html{
+        position: relative;
+        min-height: 100%
+    }
+   body {
+  /* Margin bottom by footer height */
+  margin-bottom: 60px;
+  padding-top: 70px;
+
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 60px;
+  background-color: #f5f5f5;
+}
+.h1,.h2,.h3,.h4,.h5,.h6,h1,h2,h3,h4,h5,h6{
+    font-family:inherit;
+    font-weight:500;
+    line-height:1.1;
+    color:#163893}
+
+.container-fliud {
+  width: auto;
+  max-width: 680px;
+  padding: 0 15px;
+}
+.container .text-muted {
+  margin: 20px 0;
+}
+
+    </style>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+</head>
+
+<body>
+
+    <!-- Navigation -->
+   
+    <!-- Page Content -->
+    <div class="container">
+        <img src="logo.png" class="img-responsive" alt="Responsive image">
+            <div class="row">
+                <div class="col-lg-12 text-center">
+                    <h1>Q-DEN</h1>
+                    <!-- <p class="lead">Unit System : Imperial/Metric</p> -->
+
+
+
+                    <h3 class="text-left">ASHRAE Design Condition.</h3>
+                </div>
+            </div>
+
+            <div role="tabpanel">
+            
+              <!-- Nav tabs -->
+              <ul class="nav nav-tabs" role="tablist">
+            
+                <li role="presentation" class="active"><a href="#imperial" aria-controls="imperial" role="tab" data-toggle="tab">Imperial</a></li>
+            
+            
+                <li role="presentation"><a href="#metric" aria-controls="metric" role="tab" data-toggle="tab">Metric</a></li>
+            
+              </ul>
+
+              <!-- Tab panes -->
+              <div class="tab-content">
+                <div role="tabpanel" class="tab-pane active" id="imperial">
+                     <form onSubmit="submitImperial()" action="#" >
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Dry Bulb Temperature</label>
+                            <input type="number" class="form-control" id="dryTempI" placeholder="Temperature in Farenheit" required step="any">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Wet Bulb Temperature</label>
+                            <input type="number" class="form-control" id="wetTempI" placeholder="Temperature in Fareheit" required step="any">
+                        </div>
+                        <div>
+                            <label>Elevation</label>
+                            <input type="number" class="form-control" id="elevI" placeholder="Elevation in Ft." required  step="any">
+                        </div>
+                          <br>
+                        <button type="submit" class="btn btn-primary">Calculate</button>
+                    </form>
+                    <div >
+        <h2 class="text-center">Results</h2>
+                    <div>
+                        <label>Estimated Cooling Day Hours</label>
+                    <input name="coolingTime" class="form-control" id="cooltime"placeholder="Days" readonly="readonly" maxlength="30">
+
+                    </div>           
+
+                    <div>
+                        <label>Number of Hours Percentage that
+                                Could be Covered without DX</label>
+                    <input name="echo" placeholder="Echo  %" class="form-control" readonly="readonly" id="echo" maxlength="30">
+
+                     </div>    
+                   <div>
+                            <label>Average EER</label>
+                            <input name="eer" placeholder="EERH" class="form-control" readonly="readonly" maxlength="30" id="eer">
+                   </div>       
+
+                    <div>
+                            <label>Consumption Saving</label>
+                            <input name="consumtionsaving" id="csaving" placeholder="Percentage" readonly="readonly" maxlength="30" class="form-control"> 
+                    </div>
+                    <div>
+
+                        <label>Peak Demand Saving</label>
+                        <input name="demandsaving" id="dsaving" placeholder="Percentage" readonly="readonly" maxlength="30" class="form-control">
+                    </div>
+
+                    <div>
+                    <label>Water Consumption</label>
+                    <input name="waterconsumption" id="water" placeholder="Percentage" readonly="readonly" maxlength="30" class="form-control">
+
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                    <h5 style="padding-top:10px;">For 100% Fresh Air Only Units(FAHU)</h5>
+                    </div>
+                    <div>
+                    <label>DX size needed per internal load</label>
+                    <input name="dx" id="dx" placeholder="Percentage" readonly="readonly" maxlength="30" class="form-control">
+                    </div>
+                    <br>
+                    <br></div>
+                </div>
+                <!-- Tab PAnel 2 -->
+                <div role="tabpanel" class="tab-pane " id="metric">
+
+                    <form onsubmit="submitMetric()" action="#"> 
+                        <br>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Dry Bulb Temperature</label>
+                            <input type="number" class="form-control" id="dryTempM" placeholder="Temperature in Celcius" required step="any">
+                        </div>
+                        <div class="form-group">
+                            <label for="">Wet Bulb Temperature</label>
+                            <input type="number" class="form-control" id="wetTempM" placeholder="Temperature in Celcius" step="any" required>
+                        </div>
+                        <div>
+                            <label>Elevation</label>
+                            <input type="number" class="form-control" id="elevM" placeholder="Elevation in Meters" step="any" required>
+                        </div>
+                        <br>
+                        <button type="submit" class="btn btn-primary" class="text-center">Calculate</button>
+                    </form>
+                    <div >
+        <h3 class="text-center">Results</h3>
+                    <div>
+                        <label>Estimated Cooling Day Hours</label>
+                    <input name="coolingTime" class="form-control" id="cooltimeM"placeholder="Days" readonly="readonly" maxlength="30">
+
+                    </div>           
+
+                    <div>
+                        <label>Number of Hours Percentage that
+                                Could be Covered without DX</label>
+                    <input name="echo" placeholder="Echo %" class="form-control" readonly="readonly" id="echoM" maxlength="30">
+
+                     </div>    
+                   <div>
+                            <label>Average COP</label>
+                            <input name="cop" placeholder="EERH" class="form-control" readonly="readonly" maxlength="30" id="cop">
+                   </div>       
+
+                    <div>
+                            <label>Consumption Saving</label>
+                            <input name="consumtionsaving" id="csavingM" placeholder="Percentage" readonly="readonly" maxlength="30" class="form-control"> 
+                    </div>
+                    <div>
+
+                        <label>Peak Demand Saving</label>
+                        <input name="demandsaving" id="dsavingM" placeholder="Percentage" readonly="readonly" maxlength="30" class="form-control">
+                    </div>
+
+                    <div>
+                    <label>Water Consumption</label>
+                    <input name="waterconsumption" id="waterM" placeholder="Percentage" readonly="readonly" maxlength="30" class="form-control">
+
+                    </div>
+                    <br>
+                    <br>
+                    <div>
+                    <h5 style="padding-top:10px;">For 100% Fresh Air Only Units(FAHU)</h5>
+                    </div>
+                    <div>
+                    <label>DX size needed per internal load</label>
+                    <input name="dx" id="dxM" placeholder="Percentage" readonly="readonly" maxlength="30" class="form-control">
+                    </div>
+                    <br>
+                    <br></div>
+                </div>
+            </div>
+        </div>
+
+
+    <!-- <textarea id="res"></textarea> -->
+
+        <!-- /.row -->
+
+
+</div>
+    <footer class="footer">
+      <div class="container-fliud">
+        <div class="text-center">
+        <p class="text-muted" ></p>
+      </div>
+  </div>
+    </footer>
+
+
+    <!-- /.container -->
+
+    <!-- jQuery Version 1.11.1 -->
+
+    <!-- Bootstrap Core JavaScript -->
+    <script type="text/javascript">
+
+
+    function httpGet (url) {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open("GET",url,false);
+        xmlHttp.send();
+        return xmlHttp.responseText
+    }
+
+    function parse(data){
+        var res = data.split('}');
+        res = res[0];
+        res += '}';
+        res = res.replace(/'/g,'"');
+        return JSON.parse(res);
+    }
+
+
+
+    function submitImperial(){
+
+        var baseURL = "http://52.1.170.137:5000/"
+        var dryTempI = document.getElementById("dryTempI").value;
+        var wetTempI =document.getElementById("wetTempI").value;
+        var elevI = document.getElementById("elevI").value;
+        var url = baseURL + dryTempI + '/' + wetTempI + '/' + elevI;
+        // Make get request or dummy data
+        // var  response = httpGet(url);
+        var response = "{'total cooling hours': 3550.0093750000001, 'water consumption': 1.1110774428258261, 'EERH': 39.34550083759347, 'echo': 0.98308330838521163, 'demand saving': 0.49600372608927312, 'consumption saving': 0.66248550791851135, 'DX': 0.95097043736111875 },100,60,2000,0.983083308385,3550.009375,0.950970437361,39.3455008376,0.662485507919,0.496003726089,1.11107744283"
+
+        var data = parse(response);
+        document.getElementById("cooltime").value = Math.round(data["total cooling hours"]);
+        document.getElementById("echo").value = (data["echo"]*100).toFixed(1);
+        document.getElementById("eer").value = data["EERH"].toFixed(1);
+        document.getElementById("csaving").value = (data["consumption saving"]*100).toFixed(1);
+        document.getElementById("dsaving").value = (data["demand saving"]*100).toFixed(1);
+        document.getElementById("water").value = data["water consumption"].toFixed(1);
+        document.getElementById("dx").value = (data["DX"]/5);
+
+    }
+
+    function submitMetric (){
+
+    var baseURL = "http://52.1.170.137:5000/"
+    var dryTempM = (document.getElementById("dryTempM").value)*1.8 + 32;
+    var wetTempM = document.getElementById("wetTempM").value*1.8 +32;
+    var elevM = document.getElementById("elevM").value/0.3048;
+    var url = baseURL + dryTempI + '/' + wetTempI + '/' + elevI;
+
+    // var response = httpGet(url);
+    var response = "{'total cooling hours': 3550.0093750000001, 'water consumption': 1.1110774428258261, 'EERH': 39.34550083759347, 'echo': 0.98308330838521163, 'demand saving': 0.49600372608927312, 'consumption saving': 0.66248550791851135, 'DX': 0.95097043736111875 },100,60,2000,0.983083308385,3550.009375,0.950970437361,39.3455008376,0.662485507919,0.496003726089,1.11107744283"
+
+    var data = parse(response);
+
+        document.getElementById("cooltimeM").value = Math.round(data["total cooling hours"]);
+        document.getElementById("echoM").value = (data["echo"]*100).toFixed(1);
+        document.getElementById("cop").value = (data["EERH"]/3.413).toFixed(1);
+        document.getElementById("csavingM").value = (data["consumption saving"]*100).toFixed(1);
+        document.getElementById("dsavingM").value = (data["demand saving"]*100).toFixed(1);
+        document.getElementById("waterM").value = (data["water consumption"]*1.007).toFixed(1);
+        document.getElementById("dxM").value = (data["DX"]/5)
+
+    }
+
+    </script>
+
+</body>
+
+</html>
