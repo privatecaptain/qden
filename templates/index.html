@@ -277,21 +277,26 @@
     }
 
     function checkI(){
-        var dryTempI = document.getElementById("dryTempI").value;
-        var wetTempI = document.getElementById("wetTempI").value;
+        var dryTempI = Number(document.getElementById("dryTempI").value);
+        var wetTempI = Number(document.getElementById("wetTempI").value);
         if (dryTempI >= wetTempI) {
-            return true
-        };
-        return alert("Dry Bulb Temperature should be equal or less than Wet Bulb Temperature.");
+            return true;
+        }
+        else{
+        return alert("Wet Bulb Temperature should be equal or less than Dry Bulb Temperature.");
+        }
     }
 
     function checkM(){
-        var dryTempM = document.getElementById("dryTempM").value;
-        var wetTempM = document.getElementById("wetTempM").value;
+        var dryTempM = Number(document.getElementById("dryTempM").value);
+        var wetTempM = Number(document.getElementById("wetTempM").value);
         if (dryTempM >= wetTempM) {
-            return true
-        };
-        return alert("Dry Bulb Temperature should be equal or less than Wet Bulb Temperature.");
+            return true;
+        }
+    else{
+        return alert("Wet Bulb Temperature should be equal or less than Dry Bulb Temperature.");
+        }
+        
     }
 
 
