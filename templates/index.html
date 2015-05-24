@@ -156,7 +156,7 @@ sup{
                      </div> 
                      <br>   
                    <div>
-                            <label>Hybrid SEER</label>
+                            <label>Hybrid SEER<sup>[4]</sup></label>
                             <input name="eer" class="form-control" readonly="readonly" maxlength="30" id="eer">
                    </div>       
                     <br>
@@ -225,7 +225,7 @@ sup{
                      </div>
                      <br>    
                    <div>
-                            <label>Hybrid COP</label>
+                            <label>Hybrid COP<sup>[4]</sup></label>
                             <input name="cop"  class="form-control" readonly="readonly" maxlength="30" id="cop">
                    </div>       
                    <br>
@@ -283,6 +283,65 @@ sup{
     <!-- Bootstrap Core JavaScript -->
     <script type="text/javascript">
 
+    function fallbackI(){
+
+        var dryTempI = document.getElementById("dryTempI").value;
+        var wetTempI =document.getElementById("wetTempI").value;
+        var elevI = document.getElementById("elevI").value;
+
+        if (4.44 <= dryTempI <= 54.44 ){
+                if(-1.11 <= wetTempI <= 35){
+                    if( -182.88 <= elevI <= 3962.4) {
+                        return true;
+
+                    }
+                    else{
+                        alert('Elevation should be greater than -182.88 and smaller than 3962.4 Meters.');
+                        return false;
+                    }
+                }
+                else{
+                    alert('Wet bulb Temperature should be greater than -1.11 and smaller than 35 Celsius.');
+                    return false;
+                }
+        }
+        else{
+                alert('Dry bulb Temperature should be greater than 4.44 and smaller than 54.44 Fareheit.');
+                return false;
+        }
+    }
+
+
+    function fallbackM(){
+
+        var dryTempM = document.getElementById("dryTempM").value;
+        var wetTempM =document.getElementById("wetTempM").value;
+        var elevM = document.getElementById("elevM").value;
+
+        if (40 <= dryTempM <= 130 ){
+                if(30 <= wetTempM <=95){
+                    if( -600 <= elevI <=13000) {
+                        return true;
+
+                    }
+                    else{
+                        alert('Elevation should be greater than -600 and smaller than 13000 Ft.');
+                        return false;
+                    }
+                }
+                else{
+                    alert('Wet bulb Temperature should be greater than 30 and smaller than 95 Fareheit.');
+                    return false;
+                }
+        }
+        else{
+                alert('Dry bulb Temperature should be greater than 40 and smaller than 130 Fareheit.');
+                return false;
+        }
+    }
+
+
+
 
     function httpGet (url) {
         var xmlHttp = new XMLHttpRequest();
@@ -325,7 +384,7 @@ sup{
 
     function submitImperial(){
 
-        if (checkI()) {
+        if (checkI() && fallbackI()) {
             var baseURL = "http://52.1.170.137:5000/"
             var dryTempI = document.getElementById("dryTempI").value;
             var wetTempI =document.getElementById("wetTempI").value;
@@ -342,11 +401,11 @@ sup{
             document.getElementById("csaving").value = (data["consumption saving"]*100).toFixed(1) + ' %';
             document.getElementById("dsaving").value = (data["demand saving"]*100).toFixed(1) + ' %';
             document.getElementById("water").value = data["water consumption"].toFixed(1) + ' G/Tr/Hr';
-            document.getElementById("dx").value = (data["DX"]/5).toFixed(3) +' Ton/Ton';
+            document.getElementById("dx").value = (data["DX"]/5).toFixed(1) +' Ton/Ton';
  
         }
         else{
-            // alert("Wet Bulb Temperature should be equal or less than Dry Bulb Temperature.");
+            //alert("Wet Bulb Temperature should be equal or less than Dry Bulb Temperature.");
 
         }
 
@@ -355,7 +414,7 @@ sup{
 
     function submitMetric (){
 
-        if (checkM()){
+        if (checkM() && fallbackM()){
             var baseURL = "http://52.1.170.137:5000/"
             var dryTempM = document.getElementById("dryTempM").value;
             dryTempM = (dryTempM*1.8) + 32;
@@ -375,11 +434,11 @@ sup{
             document.getElementById("csavingM").value = (data["consumption saving"]*100).toFixed(1) +' %';
             document.getElementById("dsavingM").value = (data["demand saving"]*100).toFixed(1) + ' %';
             document.getElementById("waterM").value = (data["water consumption"]*1.007).toFixed(1) + ' L/Kw/Hr';
-            document.getElementById("dxM").value = (data["DX"]/5).toFixed(3) + ' Kw/Kw'
+            document.getElementById("dxM").value = (data["DX"]/5).toFixed(1) + ' Kw/Kw'
 
         }
         else{
-            // alert("Wet Bulb Temperature should be equal or less than Dry Bulb Temperature.");
+            //alert("Wet Bulb Temperature should be equal or less than Dry Bulb Temperature.");
 
         }
 
