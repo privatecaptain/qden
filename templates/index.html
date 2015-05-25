@@ -126,16 +126,17 @@ sup{
                         <br>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Dry Bulb Temperature </label>
-                            <input type="number" class="form-control" id="dryTempI" placeholder="Temperature in Farenheit" required step="any" min=40 max=130>
+                            <input type="number" class="form-control" id="dryTempI" placeholder="Temperature in Farenheit" required step="any" min=40 max=130 >
                         </div>
                         <div class="form-group">
                             <label for="">Wet Bulb Temperature </label>
-                            <input type="number" class="form-control" id="wetTempI" placeholder="Temperature in Fareheit" required step="any" min=30 max=95
-                            onchange="checkI()">
+                            <input type="number" class="form-control" id="wetTempI" placeholder="Temperature in Fareheit" required step="any"
+
+                            onchange="checkI()" min=30 max=95 >
                         </div>
                         <div>
                             <label>Elevation </label>
-                            <input type="number" class="form-control" id="elevI" placeholder="Elevation in Ft." required  step="any" min=-600 max=13000>
+                            <input type="number" class="form-control" id="elevI" placeholder="Elevation in Ft." required  step="any"  min=-600 max=13000 >
                         </div>
                           <br>
                         <button type="submit" class="btn btn-primary">Calculate</button>
@@ -283,15 +284,16 @@ sup{
     <!-- Bootstrap Core JavaScript -->
     <script type="text/javascript">
 
-    function fallbackI(){
+    function fallbackM(){
 
-        var dryTempI = document.getElementById("dryTempI").value;
-        var wetTempI =document.getElementById("wetTempI").value;
-        var elevI = document.getElementById("elevI").value;
 
-        if (4.44 <= dryTempI <= 54.44 ){
-                if(-1.11 <= wetTempI <= 35){
-                    if( -182.88 <= elevI <= 3962.4) {
+        var dryTempM = Number(document.getElementById("dryTempM").value);
+        var wetTempM =Number(document.getElementById("wetTempM").value);
+        var elevM =  Number(document.getElementById("elevM").value);
+
+        if (4.44 <= dryTempM &&  dryTempM <= 54.44 ){
+                if(-1.11 <= wetTempM && wetTempM<= 35){
+                    if( -182.88 <= elevM && elevM <= 3962.4) {
                         return true;
 
                     }
@@ -306,21 +308,23 @@ sup{
                 }
         }
         else{
-                alert('Dry bulb Temperature should be greater than 4.44 and smaller than 54.44 Fareheit.');
+                alert('Dry bulb Temperature should be greater than 4.44 and smaller than 54.44 Celsius.');
                 return false;
         }
     }
 
 
-    function fallbackM(){
+    function fallbackI(){
 
-        var dryTempM = document.getElementById("dryTempM").value;
-        var wetTempM =document.getElementById("wetTempM").value;
-        var elevM = document.getElementById("elevM").value;
+        var dryTempI = Number(document.getElementById("dryTempI").value);
+        var wetTempI =Number(document.getElementById("wetTempI").value);
+        var elevI = Number(document.getElementById("elevI").value);
 
-        if (40 <= dryTempM <= 130 ){
-                if(30 <= wetTempM <=95){
-                    if( -600 <= elevI <=13000) {
+                
+        if (40 <= dryTempI && dryTempI <= 130 ){
+            
+                if(30 <= wetTempI  && wetTempI <=95){
+                    if( -600 <= elevI && elevI <=13000) {
                         return true;
 
                     }
@@ -391,7 +395,7 @@ sup{
             var elevI = document.getElementById("elevI").value;
             var url = baseURL + dryTempI + '/' + wetTempI + '/' + elevI;
             // Make get request or dummy data
-            var  response = httpGet(url);
+            // var  response = httpGet(url);
             // var response = "{'total cooling hours': 3550.0093750000001, 'water consumption': 1.1110774428258261, 'EERH': 39.34550083759347, 'echo': 0.98308330838521163, 'demand saving': 0.49600372608927312, 'consumption saving': 0.66248550791851135, 'DX': 0.95097043736111875 },100,60,2000,0.983083308385,3550.009375,0.950970437361,39.3455008376,0.662485507919,0.496003726089,1.11107744283"
 
             var data = parse(response);
