@@ -2,12 +2,14 @@
 <html lang="en">
 
 <head>
+    {% block head %}
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
+
 
     <!-- Bootstrap Core CSS -->
     <!-- <link href="css/bootstrap.min.css" rel="stylesheet"> -->
@@ -87,6 +89,8 @@ sup{
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+
+{% endblock %}
 </head>
 
 <body>
@@ -122,7 +126,7 @@ sup{
               <!-- Tab panes -->
               <div class="tab-content">
                 <div role="tabpanel" class="tab-pane active" id="imperial">
-                     <form onSubmit="submitImperial()" action="#" >
+                     <form onSubmit="submitImperial(); return false;" action="#"   >
                         <br>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Dry Bulb Temperature </label>
@@ -193,7 +197,7 @@ sup{
                 <!-- Tab PAnel 2 -->
                 <div role="tabpanel" class="tab-pane " id="metric">
 
-                    <form onsubmit="submitMetric()" action="#"> 
+                    <form onsubmit="submitMetric();return false;" action="#" > 
                         <br>
                         <div class="form-group">
                             <label for="exampleInputEmail1">Dry Bulb Temperature</label>
@@ -323,8 +327,8 @@ sup{
                 
         if (40 <= dryTempI && dryTempI <= 130 ){
             
-                if(30 <= wetTempI  && wetTempI <=95){
-                    if( -600 <= elevI && elevI <=13000) {
+                if(30 <= wetTempI  && wetTempI <= 95){
+                    if( -600 <= elevI && elevI <= 13000) {
                         return true;
 
                     }
@@ -396,7 +400,7 @@ sup{
             var url = baseURL + dryTempI + '/' + wetTempI + '/' + elevI;
             // Make get request or dummy data
             // var  response = httpGet(url);
-            // var response = "{'total cooling hours': 3550.0093750000001, 'water consumption': 1.1110774428258261, 'EERH': 39.34550083759347, 'echo': 0.98308330838521163, 'demand saving': 0.49600372608927312, 'consumption saving': 0.66248550791851135, 'DX': 0.95097043736111875 },100,60,2000,0.983083308385,3550.009375,0.950970437361,39.3455008376,0.662485507919,0.496003726089,1.11107744283"
+            var response = "{'total cooling hours': 3550.0093750000001, 'water consumption': 1.1110774428258261, 'EERH': 39.34550083759347, 'echo': 0.98308330838521163, 'demand saving': 0.49600372608927312, 'consumption saving': 0.66248550791851135, 'DX': 0.95097043736111875 },100,60,2000,0.983083308385,3550.009375,0.950970437361,39.3455008376,0.662485507919,0.496003726089,1.11107744283";
 
             var data = parse(response);
             document.getElementById("cooltime").value = (Math.round(data["total cooling hours"]) + '  Hours');
@@ -427,8 +431,8 @@ sup{
             var elevM = (document.getElementById("elevM").value)/0.3048;
             var url = baseURL + dryTempM + '/' + wetTempM + '/' + elevM;
 
-            var response = httpGet(url);
-            // var response = "{'total cooling hours': 3550.0093750000001, 'water consumption': 1.1110774428258261, 'EERH': 39.34550083759347, 'echo': 0.98308330838521163, 'demand saving': 0.49600372608927312, 'consumption saving': 0.66248550791851135, 'DX': 0.95097043736111875 },100,60,2000,0.983083308385,3550.009375,0.950970437361,39.3455008376,0.662485507919,0.496003726089,1.11107744283"
+            // var response = httpGet(url);
+            var response = "{'total cooling hours': 3550.0093750000001, 'water consumption': 1.1110774428258261, 'EERH': 39.34550083759347, 'echo': 0.98308330838521163, 'demand saving': 0.49600372608927312, 'consumption saving': 0.66248550791851135, 'DX': 0.95097043736111875 },100,60,2000,0.983083308385,3550.009375,0.950970437361,39.3455008376,0.662485507919,0.496003726089,1.11107744283"
 
             var data = parse(response);
 
@@ -451,6 +455,7 @@ sup{
 
     </script>
 
+    
 </body>
 
 </html>
