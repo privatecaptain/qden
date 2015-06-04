@@ -205,7 +205,7 @@ def index():
 
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/qden/login', methods=['POST'])
 def login():
 	if request.method == 'POST':
 		if valid_login(request.form['email'],
@@ -229,10 +229,6 @@ def signup():
 			return render_template('success.html')
 	return render_template('login.html')
 
-
-@app.route('/user/<name>')
-def user(name):
-    return render_template('user.html', name = name)
 
 
 @app.route('/qden/activate/<email>')
