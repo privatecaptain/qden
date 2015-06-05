@@ -118,7 +118,7 @@ body {
     transition: all 0.1s linear;
 }
 .panel-login>.panel-heading a.active{
-    color: #029f5b;
+    color: #FEB500;
     font-size: 18px;
 }
 .panel-login>.panel-heading hr{
@@ -149,7 +149,7 @@ body {
     border-color: #ccc;
 }
 .btn-login {
-    background-color: #59B2E0;
+    background-color: #FEB500;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -157,9 +157,8 @@ body {
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #59B2E6;
+    border-color: #FEB500;
 }
-.btn-login:hover,
 .btn-login:focus {
     color: #fff;
     background-color: #53A3CD;
@@ -176,7 +175,7 @@ body {
 }
 
 .btn-register {
-    background-color: #1CB94E;
+    background-color: #FEB500;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -217,34 +216,45 @@ hr.message-inner-separator
 
 <!-- http://www.jquery2dotnet.com -->
 <div class="container">
-    <div class="row">
-
-        <div class="col-sm-6 col-md-12">
-            <div class="alert alert-success">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    ×</button>
-               <span class="glyphicon glyphicon-ok"></span> <strong>Account Created</strong>
-                <hr class="message-inner-separator">
-                <p>
-                    You successfully created an accout for Q-DEN !!!</p>
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="panel panel-login">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-xs-12">
+                                <a class="active" id="login-form-link">Enter Verification Code</p>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <form id="login-form" action="/activate" method="post" role="form" style="display: block;">
+                                    <div class="form-group">
+                                        <input type="text" name="code" id="code" tabindex="1" class="form-control" placeholder="Verification Code" value="">
+                                        {% if email %}
+                                        <input type="text" hidden name="email" id="email" value={{email}}>
+                                        {% endif %}
+                                    </div>
+                            
+                            
+                                     <div class="form-group">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-sm-offset-3">
+                                                <input type="submit" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Verify!">
+                                            </div>
+                                        </div>
+                                    </div>
+                                                                   </form>
+            
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
-                <div class="col-sm-6 col-md-12">
-            <div class="alert alert-info">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
-                    ×</button>
-                <span class="glyphicon glyphicon-hand-right"></span> <strong>Verify Email Address</strong>
-                <hr class="message-inner-separator">
-                <p>Please Verify your Email Address in order to use Q-DEN.</p>
-            </div>
-            <a href="/">Back.</a>
-
-        </div>
-
     </div>
-</div>
-
-
 
 
 <!--  -->
@@ -521,8 +531,8 @@ $(function(){
         directionX: 'center', // 'center', 'left' or 'right'. 'center' = dots bounce off edges
         directionY: 'center', // 'center', 'up' or 'down'. 'center' = dots bounce off edges
         density: 10000, // How many particles will be generated: one particle every n pixels
-        dotColor: '#eee',
-        lineColor: '#eee',
+        dotColor: '#163893',
+        lineColor: '#163893',
         particleRadius: 7, // Dot size
         lineWidth: 1,
         curvedLines: true,

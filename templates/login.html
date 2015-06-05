@@ -51,7 +51,7 @@ body {
 #form > div:last-child {
     margin-top: 10px;
     margin-bottom: 10px;
-}
+}   
 
 .panel {    
     background-color: transparent;
@@ -59,7 +59,7 @@ body {
 
 .panel-body {
     padding-top: 30px;
-    background-color: rgba(2555,255,255,.3);
+    background-color: rgba(2555,255,255,.7);
 }
 
 #particles {
@@ -118,7 +118,7 @@ body {
     transition: all 0.1s linear;
 }
 .panel-login>.panel-heading a.active{
-    color: #029f5b;
+    color: #FEB500;
     font-size: 18px;
 }
 .panel-login>.panel-heading hr{
@@ -127,7 +127,7 @@ body {
     clear: both;
     border: 0;
     height: 1px;
-    background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+    background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, .15),rgba(0, 0, 0, 0));
     background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
     background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
     background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
@@ -149,7 +149,7 @@ body {
     border-color: #ccc;
 }
 .btn-login {
-    background-color: #59B2E0;
+    background-color: #FEB500;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -157,9 +157,9 @@ body {
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #59B2E6;
+    border-color: #FEB500;
 }
-.btn-login:hover,
+
 .btn-login:focus {
     color: #fff;
     background-color: #53A3CD;
@@ -176,7 +176,7 @@ body {
 }
 
 .btn-register {
-    background-color: #1CB94E;
+    background-color: #FEB500;
     outline: none;
     color: #fff;
     font-size: 14px;
@@ -184,15 +184,16 @@ body {
     font-weight: normal;
     padding: 14px 0;
     text-transform: uppercase;
-    border-color: #1CB94A;
+    border-color: #FEB500;
 }
-.btn-register:hover,
 .btn-register:focus {
     color: #fff;
     background-color: #1CA347;
     border-color: #1CA347;
 }
-
+.active{
+    color: #FEB500
+}
 
 </style>
 </head>
@@ -223,9 +224,12 @@ body {
                                     <div class="form-group">
                                         <input type="text" name="email" id="username" tabindex="1" class="form-control" placeholder="Email Address" value="">
                                     </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                                    
+                                    <div class="form-group text-center">
+                                        <input type="checkbox" tabindex="3" class="" name="remember" id="remember">
+                                        <label for="remember"> Remember Me</label>
                                     </div>
+
                                         <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
@@ -240,14 +244,11 @@ body {
                                     </div>
                                     <div class="form-group">
                                         <input type="email" name="email" id="email" tabindex="1" class="form-control" placeholder="Email Address" value="" required>
+                                        {% if error %}
+                                        <p>{{error}}</p>
+                                        {% endif %}
                                     </div>
-                                    <div class="form-group">
-                                        <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password" required 
-                                        onchange="if(this.checkValidity()) form.confirm-password.pattern = this.value;">
-                                    </div>
-                                    <div class="form-group">
-                                        <input type="password" name="confirm-password" id="confirm-password" tabindex="2" class="form-control" placeholder="Confirm Password" required>
-                                    </div>
+                                
                                     <div class="form-group">
                                         <div class="row">
                                             <div class="col-sm-6 col-sm-offset-3">
@@ -540,8 +541,8 @@ $(function(){
         directionX: 'center', // 'center', 'left' or 'right'. 'center' = dots bounce off edges
         directionY: 'center', // 'center', 'up' or 'down'. 'center' = dots bounce off edges
         density: 10000, // How many particles will be generated: one particle every n pixels
-        dotColor: '#eee',
-        lineColor: '#eee',
+        dotColor: '#163893',
+        lineColor: '#163893',
         particleRadius: 7, // Dot size
         lineWidth: 1,
         curvedLines: true,

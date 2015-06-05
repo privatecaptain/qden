@@ -1,12 +1,12 @@
 from flask import Flask, request, make_response, redirect, render_template
-
+import random
 from flask import Flask, url_for,render_template
 import xlrd
 import sklearn.ensemble
 from sklearn.ensemble import RandomForestRegressor
 import sqlite3
 import requests
-db_connector = sqlite3.connect("qden_data.db",check_same_thread=False)
+db_connector = sqlite3.connect("/var/www/qden/qden_data.db",check_same_thread=False)
 
 # 
 
@@ -16,7 +16,7 @@ http://localhost:5000/84.2/56.8/7329.4
 """
 
 app = Flask(__name__)
-path = "/home/ubuntu/Q_Den.xlsx"
+path = "/var/www/qden/Q_Den.xlsx"
 book = xlrd.open_workbook(path)
 # print book.nsheets
 first_sheet = book.sheet_by_index(0)
@@ -94,9 +94,9 @@ clf_water_consumption.fit(x, y_water_consumption)
 
 
 # num_rows = 5
-@app.route('/')
-def api_root():
-	return 'Welcome'
+#@app.route('/')
+#def api_root():
+#	return render_template('login.html')
 
 #routing the qden page to the User Interface 
 
@@ -137,22 +137,23 @@ def user(dry_bulb,wet_bulb,elevation):
     # return "usercalled"+str(dry_bulb)+str(wet_bulb)+str(elevation)
 
 # 
-def sendmail(to,link):
+
+def sendmail(to,code):
     return requests.post(
-        "https://api.mailgun.net/v3/sandboxf32357e89d9f49879486f38f1affacc0.mailgun.org/messages",
+        "https://api.mailgun.net/v3/info.air2o.com/messages",
         auth=("api", "key-49df66c0deb773d5ee957597be27f9e9"),
-        data={"from": "Q-DEN Air2O <mailgun@sandboxf32357e89d9f49879486f38f1affacc0.mailgun.org>",
+        data={"from": "Q-DEN Air2O <verification@info.air2o.com>",
               "to": [to,],
               "subject": "Verification Email",
-              "text": "Congratulations on creating your Q-DEN account click on the link below to activate your account.\n" + link})
+              "text": "Congratulations on creating your Q-DEN account. Please enter the code below to activate your account.\n\n\n" + code})
 
 
 
-def adduser(name,email,password):
+def adduser(name,email,code):
 	try:
 		with db_connector:
 			cursor = db_connector.cursor()
-			t = (name,email,password,0)
+			t = (name,email,code,0)
 			cursor.execute("INSERT INTO USERS(name,email,password,active) VALUES(?,?,?,?);",t)
 			return True
 	except:
@@ -168,24 +169,33 @@ def activate(email):
 	except:
 		return False
 
-
-
-def valid_login(email,password):
+def verify(email,code):
 	try:
 		with db_connector:
 			cursor = db_connector.cursor()
 			t = (email,)
 			cursor.execute("SELECT password FROM USERS WHERE email=?;",t)
-			dpass = cursor.fetchone()[0]
-			print dpass,password
-			if dpass:
-				if dpass == password:
-					return True	
+			pwd = cursor.fetchone()[0]
+			if code == pwd:
+				return True
 	except:
 		pass
 	return False
 
-def log_the_user_in(email):
+def valid_login(email):
+	try:
+		with db_connector:
+			cursor = db_connector.cursor()
+			t = (email,)
+			cursor.execute("SELECT * FROM USERS WHERE email=?;",t)
+			dpass = cursor.fetchone()[0]
+			if dpass:
+				return True	
+	except:
+		pass
+	return False
+
+def log_the_user_in(email,flag=False):
 	try:
 		with db_connector:
 			cursor = db_connector.cursor()
@@ -193,50 +203,75 @@ def log_the_user_in(email):
 			cursor.execute("SELECT active FROM USERS WHERE email=?;",t)
 			act = cursor.fetchone()[0]
 			if int(act) == 1:
-				return render_template('index.html')
+				resp = make_response(render_template('index.html'))
+				if flag:
+					resp.set_cookie('email',email)
+				return resp
 	except:
 		pass
-	return render_template("verify_email.html")
+	return render_template("success.html",email=email)
 
 
-@app.route('/qden')
+def generate_code():
+	return random.randint(1000,10000)
+
+@app.route('/')
 def index():
-    return render_template('login.html')
+	email = request.cookies.get('email')
+	if email:
+		return log_the_user_in(email)
+	return render_template('login.html')
 
 
 
-@app.route('/qden/login', methods=['POST'])
+@app.route('/login', methods=['POST',])
 def login():
+
 	if request.method == 'POST':
-		if valid_login(request.form['email'],
-						request.form['password']):
-			return log_the_user_in(request.form['email'])
+		email = request.form['email']
+		try:
+			flag = request.form['remember']
+		except:
+			flag = None
+		print flag
+		if valid_login(email):
+			if flag == 'on':
+				return log_the_user_in(email,flag=True)
+			else:
+				return log_the_user_in(email)
 		else:
 			return render_template('loginerror.html')
 	return render_template('login.html')
 
 
 
-@app.route('/qden/signup',methods=['POST'])
+@app.route('/signup',methods=['POST'])
 def signup():
+	email = request.form['email']
+
 	if request.method == 'POST':
-		email = request.form['email']
+		
 		name = request.form['name']
-		password = request.form['password']
-		if adduser(name,email,password):
-			link = 'http://52.1.170.137/qden/activate/' + str(email)
-			sendmail(email,link)
-			return render_template('success.html')
+		code = str(generate_code())
+
+		if adduser(name,email,code):
+			sendmail(email,code)
+			return render_template('success.html',email=email)
 	return render_template('login.html')
 
 
 
-@app.route('/qden/activate/<email>')
-def activate_user(email):
-	if activate(email):
-		return render_template('verified.html')
+@app.route('/activate',methods=['POST',])
+def activate_user():
+	email = request.form['email']
+	code = request.form['code']
+	if verify(email,code):
+		if activate(email):
+			return render_template('index.html')
+	return render_template('login.html')
 
 
 if __name__ == '__main__':
     app.run()
+
 
